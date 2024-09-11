@@ -1,10 +1,12 @@
 public class BankAccount {
     private double balance;
-    public BankAccount(double initialBalance) {
+    private Ledger ledger;
+    public BankAccount(double initialBalance, Ledger ledger) {
         if (initialBalance < 0) {
             throw new IllegalArgumentException("Initial balance cannot be negative");
         }
         this.balance = initialBalance;
+        this.ledger = ledger;
     }
 
     public void deposit(double amount) {
@@ -12,6 +14,7 @@ public class BankAccount {
             throw new IllegalArgumentException("Deposit amount must be greater than zero");
         }
         this.balance += amount;
+        ledger.deposit(amount);
     }
 
     public void withdraw(double amount) {
@@ -22,6 +25,7 @@ public class BankAccount {
             throw new IllegalArgumentException("Withdrawal amount must be greater than zero");
         }
         this.balance -= amount;
+        ledger.withdraw(amount);
     }
 
     public double getBalance() {
